@@ -3,6 +3,8 @@
 #include <chrono>
 #include <signal.h>
 
+#include <grid.hpp>
+
 using std::cout;
 using std::endl;
 
@@ -18,9 +20,14 @@ void SigIntHandler(int param) {
 int main() {
     signal(SIGINT, SigIntHandler);
 
+    Grid grid;
+
+    grid.SetCell(2,2,CellStatus::fruit);
+
     ClearTerm();
-    for (int i = 0;; i++) {    
-        cout << "Cicle N " << i << endl;
+
+    for (int i = 0;; i++) {
+        cout << grid.Print() <<endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(20)); 
         ClearTerm();
     }
