@@ -4,6 +4,7 @@
 #include <signal.h>
 
 #include <grid.hpp>
+#include <snake.hpp>
 
 using std::cout;
 using std::endl;
@@ -21,14 +22,16 @@ int main() {
     signal(SIGINT, SigIntHandler);
 
     Grid grid;
+    SnakeCell* s1 = new SnakeCell(3,3,1,0,&grid);
 
     grid.SetCell(2,2,CellStatus::fruit);
 
     ClearTerm();
 
     for (int i = 0;; i++) {
+        s1->Update(false);
         cout << grid.Print() <<endl;
-        std::this_thread::sleep_for(std::chrono::milliseconds(20)); 
+        std::this_thread::sleep_for(std::chrono::milliseconds(600)); 
         ClearTerm();
     }
     return 0;
