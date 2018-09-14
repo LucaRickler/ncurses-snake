@@ -32,7 +32,7 @@ private:
   CellStatus** _grid;
 
   void initGrid ();
-  void FindEmpty (int& x, int& y);
+  void FindEmpty (int& x, int& y, int x_padding, int y_padding);
 };
 
 #endif

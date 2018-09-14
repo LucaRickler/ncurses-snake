@@ -9,6 +9,7 @@ Grid::Grid(int width, int height) {
   this->_width = width < GRID_MIN_WIDTH ? GRID_MIN_WIDTH : width;
   this->_height = height < GRID_MIN_HEIGHT ? GRID_MIN_HEIGHT : height;
   this->initGrid();
+  srand (time(NULL));
 }
 
 Grid::~Grid() {
@@ -68,33 +69,21 @@ void Grid::SetCell(int x, int y, CellStatus status) {
 
 void Grid::AddFruit() {
   int x,y;
-  srand (time(NULL));
-  do {
-    x = rand() % this->_height +1;
-    y = rand() % this->_width +1;
-    std::cout << x << y <<std::endl;
-  } while (this->GetCell(x, y) != CellStatus::empty);
+  this->FindEmpty(x,y,0,0);
   this->SetCell(x, y, CellStatus::fruit);
 }
 
 SnakeCell* Grid::AddSnake(Session* ssn) {
   int x,y;
-  srand (time(NULL));
-  do {
-    x = rand() % this->_height - 3 +3;
-    y = rand() % this->_width - 3 +3;
-    std::cout << x << y <<std::endl;
-  } while (this->GetCell(x, y) != CellStatus::empty);
+  this->FindEmpty(x,y,3,3);
   return new SnakeCell(
     x,y,
     1,0,this,ssn);
 }
 
-void Grid::FindEmpty(int& x, int& y) {
-  srand (time(NULL));
+void Grid::FindEmpty(int& x, int& y, int x_padding, int y_padding) {
   do {
-    x = rand() % this->_height +1;
-    y = rand() % this->_width +1;
-    std::cout << x << y <<std::endl;
+    x = rand() % (this->_height - x_padding) + x_padding + 1;
+    y = rand() % (this->_width - y_padding) + y_padding + 1;
   } while (this->GetCell(x, y) != CellStatus::empty);
 }
