@@ -20,14 +20,14 @@ Grid::~Grid() {
 }
 
 void Grid::initGrid() {
-  this->_grid = new CellStatus*[this->_height + 2];
+  this->_grid = new Cell*[this->_height + 2];
   for (int i = 0; i < this->_height + 2; i++) {
-    this->_grid[i] = new CellStatus[this->_width + 2];
+    this->_grid[i] = new Cell[this->_width + 2];
     for (int j = 0; j < this->_width + 2; j++) {
       if (i == 0 || i == this->_height + 1 || j == 0 || j == this->_width + 1)
-        this->_grid[i][j] = CellStatus::wall;
+        this->_grid[i][j] = Cell{CellStatus::wall,i,j};
       else
-        this->_grid[i][j] = CellStatus::empty;
+        this->_grid[i][j] = Cell{CellStatus::empty,i,j};
     }
   }
 }
@@ -36,7 +36,7 @@ std::string Grid::Print() {
   std::string output = "";
   for (int i = 0; i < this->_height + 2; i++) {
     for (int j = 0; j < this->_width + 2; j++) {
-      switch (this->_grid[i][j]) {
+      switch (this->_grid[i][j].status) {
         case CellStatus::empty:
           output += " ";
           break;
@@ -56,15 +56,15 @@ std::string Grid::Print() {
   return output;
 }
 
-CellStatus Grid::GetCell(int x, int y) {
+Cell Grid::GetCell(int x, int y) {
   if (x >= 0 && x < this->_height +2 && y >= 0 && y < this->_width +2)
     return this->_grid[x][y];
-  return CellStatus::empty; 
+  return Cell{}; 
 }
 
 void Grid::SetCell(int x, int y, CellStatus status) {
   if (x >= 0 && x < this->_height +2 && y >= 0 && y < this->_width +2)
-    this->_grid[x][y] = status;
+    this->_grid[x][y].status = status;
 }
 
 void Grid::AddFruit() {
@@ -85,5 +85,5 @@ void Grid::FindEmpty(int& x, int& y, int x_padding, int y_padding) {
   do {
     x = rand() % (this->_height - x_padding) + x_padding + 1;
     y = rand() % (this->_width - y_padding) + y_padding + 1;
-  } while (this->GetCell(x, y) != CellStatus::empty);
+  } while (this->GetCell(x, y).status != CellStatus::empty);
 }

@@ -13,13 +13,20 @@ const int GRID_MIN_HEIGHT = 10;
 
 enum class CellStatus {empty, fruit, snake, wall};
 
+struct Cell {
+public:
+  CellStatus status;
+  int x;
+  int y;
+};
+
 class Grid {
 public:
   Grid();
   Grid(int width, int height);
   virtual ~Grid();
 
-  CellStatus GetCell(int x, int y);
+  Cell GetCell(int x, int y);
   void SetCell(int x, int y, CellStatus status);
 
   void AddFruit();
@@ -29,7 +36,7 @@ public:
 private:
   int _width;
   int _height;
-  CellStatus** _grid;
+  Cell** _grid;
 
   void initGrid ();
   void FindEmpty (int& x, int& y, int x_padding, int y_padding);
