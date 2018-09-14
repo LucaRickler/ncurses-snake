@@ -20,18 +20,20 @@ void SnakeCell::Update(bool replicate) {
   new_x = this->_x + this->_speedX;
   new_y = this->_y + this->_speedY;
   
-  CellStatus status = this->_grid->GetCell(new_x, new_y);
-  switch (status) {
-    case CellStatus::fruit:
-      replicate = true;
-      this->_session->AddPoint();
-      break;
-    case CellStatus::wall:
-      this->_session->SetGameOver();
-      break;
-    default: ;
+  if (this->_head) {
+    CellStatus status = this->_grid->GetCell(new_x, new_y);
+    switch (status) {
+      case CellStatus::fruit:
+        replicate = true;
+        this->_session->AddPoint();
+        break;
+      case CellStatus::wall:
+      case CellStatus::snake:
+        this->_session->SetGameOver();
+        break;
+      default: ;
+    }
   }
-
   this->_grid->SetCell(this->_x, this->_y, CellStatus::empty);
 
   if (this->_next != nullptr)
@@ -63,4 +65,8 @@ void SnakeCell::Replicate() {
 void SnakeCell::SetSpeed(int x, int y) {
   this->_speedX = x;
   this->_speedY = y;
+}
+
+void SnakeCell::SetHead() {
+  this->_head = true;
 }

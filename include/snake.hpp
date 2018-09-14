@@ -12,11 +12,15 @@ public:
   void Replicate();
 
   void SetSpeed(int x, int y);
+
+  void SetHead();
 private:
   int _x;
   int _y;
   int _speedX;
   int _speedY;
+
+  bool _head;
 
   Grid* _grid;
   Session* _session;
