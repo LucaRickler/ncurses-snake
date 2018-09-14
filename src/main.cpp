@@ -5,6 +5,7 @@
 
 #include <grid.hpp>
 #include <snake.hpp>
+#include <session.hpp>
 
 using std::cout;
 using std::endl;

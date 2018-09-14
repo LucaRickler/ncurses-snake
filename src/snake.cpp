@@ -1,4 +1,6 @@
 #include <snake.hpp>
+#include <grid.hpp>
+#include <session.hpp>
 
 SnakeCell::SnakeCell(int x, int y, int speedX, int speedY, Grid* grid, Session* session) {
   this->_x = x;

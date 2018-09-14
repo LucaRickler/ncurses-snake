@@ -1,6 +1,8 @@
 #ifndef SESSION_HPP
 #define SESSION_HPP
 
+#include <definitions.hpp>
+
 class Session {
 public:
   Session();

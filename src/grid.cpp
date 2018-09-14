@@ -1,4 +1,5 @@
 #include <grid.hpp>
+#include <snake.hpp>
 #include <stdlib.h>
 #include <time.h>
 #include <iostream>
