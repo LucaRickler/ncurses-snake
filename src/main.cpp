@@ -9,6 +9,10 @@
 using std::cout;
 using std::endl;
 
+void PrintGameOver(Session* ssn) {
+    cout << "\n\tGAME OVER\n\n\tPoints: " << ssn->GetPoints() << endl << endl;
+}
+
 void ClearTerm() {
     std::cout << "\033[2J\033[1;1H";
 }
@@ -22,17 +26,19 @@ int main() {
     signal(SIGINT, SigIntHandler);
 
     Grid grid;
-    SnakeCell* s1 = new SnakeCell(3,3,1,0,&grid);
+    Session ssn;
+    SnakeCell* s1 = new SnakeCell(3,3,1,0,&grid, &ssn);
 
     grid.SetCell(2,2,CellStatus::fruit);
 
     ClearTerm();
 
-    for (int i = 0;; i++) {
+    while (!ssn.GetGameOver()) {
         s1->Update(false);
-        cout << grid.Print() <<endl;
+        cout << grid.Print() << "Points: " << ssn.GetPoints() << endl;
         std::this_thread::sleep_for(std::chrono::milliseconds(600)); 
         ClearTerm();
     }
+    PrintGameOver(&ssn);
     return 0;
 }

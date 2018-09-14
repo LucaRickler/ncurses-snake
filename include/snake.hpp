@@ -2,10 +2,11 @@
 #define SNAKE_HPP
 
 #include <grid.hpp>
+#include <session.hpp>
 
 class SnakeCell {
 public:
-  SnakeCell(int x, int y, int speedX, int speedY, Grid* grid);
+  SnakeCell(int x, int y, int speedX, int speedY, Grid* grid, Session* session);
   virtual ~SnakeCell();
   void Update(bool replicate);
   void Replicate();
@@ -18,6 +19,7 @@ private:
   int _speedY;
 
   Grid* _grid;
+  Session* _session;
   SnakeCell* _next;
 };
 

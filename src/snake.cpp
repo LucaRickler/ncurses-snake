@@ -1,10 +1,11 @@
 #include <snake.hpp>
 
-SnakeCell::SnakeCell(int x, int y, int speedX, int speedY, Grid* grid) {
+SnakeCell::SnakeCell(int x, int y, int speedX, int speedY, Grid* grid, Session* session) {
   this->_x = x;
   this->_y = y;
   this->SetSpeed(speedX, speedY);
   this->_grid = grid;
+  this->_session = session;
   this->_next = nullptr;
 
   this->_grid->SetCell(x,y, CellStatus::snake);
@@ -23,8 +24,10 @@ void SnakeCell::Update(bool replicate) {
   switch (status) {
     case CellStatus::fruit:
       replicate = true;
+      this->_session->AddPoint();
       break;
     case CellStatus::wall:
+      this->_session->SetGameOver();
       break;
     default: ;
   }
@@ -52,7 +55,8 @@ void SnakeCell::Replicate() {
     this->_y,
     this->_speedX,
     this->_speedY,
-    this->_grid
+    this->_grid,
+    this->_session
   );
 }
 
