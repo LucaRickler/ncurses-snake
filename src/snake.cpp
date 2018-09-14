@@ -21,7 +21,7 @@ void SnakeCell::Update(bool replicate) {
   new_y = this->_y + this->_speedY;
   
   if (this->_head) {
-    CellStatus status = this->_grid->GetCell(new_x, new_y);
+    CellStatus status = this->_grid->GetCell(new_x, new_y).status;
     switch (status) {
       case CellStatus::fruit:
         replicate = true;
