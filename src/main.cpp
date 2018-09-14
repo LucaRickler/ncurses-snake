@@ -31,8 +31,6 @@ int main() {
     grid.AddFruit();
     grid.AddFruit();
     SnakeCell* s1 = grid.AddSnake(&ssn);
-
-    //SnakeCell* s1 = new SnakeCell(3,3,1,0,&grid, &ssn);
     s1->SetHead();
 
     ClearTerm();
@@ -43,6 +41,7 @@ int main() {
         std::this_thread::sleep_for(std::chrono::milliseconds(600)); 
         ClearTerm();
     }
+    delete s1;
     PrintGameOver(&ssn);
     return 0;
 }

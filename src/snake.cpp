@@ -26,6 +26,7 @@ void SnakeCell::Update(bool replicate) {
       case CellStatus::fruit:
         replicate = true;
         this->_session->AddPoint();
+        this->_grid->AddFruit();
         break;
       case CellStatus::wall:
       case CellStatus::snake:

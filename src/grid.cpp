@@ -6,8 +6,8 @@
 Grid::Grid() : Grid(GRID_MIN_WIDTH, GRID_MIN_HEIGHT) { }
 
 Grid::Grid(int width, int height) {
-  this->_width = width;
-  this->_height = height;
+  this->_width = width < GRID_MIN_WIDTH ? GRID_MIN_WIDTH : width;
+  this->_height = height < GRID_MIN_HEIGHT ? GRID_MIN_HEIGHT : height;
   this->initGrid();
 }
 
