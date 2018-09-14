@@ -8,7 +8,7 @@ SnakeCell::SnakeCell(int x, int y, int speedX, int speedY, Grid* grid, Session* 
   this->_session = session;
   this->_next = nullptr;
 
-  this->_grid->SetCell(x,y, CellStatus::snake);
+  this->_grid->SetCellStatus(x,y, CellStatus::snake);
 }
 
 SnakeCell::~SnakeCell() {
@@ -35,7 +35,7 @@ void SnakeCell::Update(bool replicate) {
       default: ;
     }
   }
-  this->_grid->SetCell(this->_x, this->_y, CellStatus::empty);
+  this->_grid->SetCellStatus(this->_x, this->_y, CellStatus::empty);
 
   if (this->_next != nullptr)
     this->_next->Update(replicate);
@@ -46,7 +46,7 @@ void SnakeCell::Update(bool replicate) {
   this->_x = new_x;
   this->_y = new_y;
 
-  this->_grid->SetCell(this->_x, this->_y, CellStatus::snake);
+  this->_grid->SetCellStatus(this->_x, this->_y, CellStatus::snake);
 
   if (this->_next != nullptr)
     this->_next->SetSpeed(this->_speedX, this->_speedY);

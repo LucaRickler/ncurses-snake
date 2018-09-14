@@ -27,7 +27,7 @@ public:
   virtual ~Grid();
 
   Cell GetCell(int x, int y);
-  void SetCell(int x, int y, CellStatus status);
+  void SetCellStatus(int x, int y, CellStatus status);
 
   void AddFruit();
   SnakeCell* AddSnake(Session* ssn);
