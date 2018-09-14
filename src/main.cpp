@@ -27,10 +27,13 @@ int main() {
 
     Grid grid;
     Session ssn;
-    SnakeCell* s1 = new SnakeCell(3,3,1,0,&grid, &ssn);
-    s1->SetHead();
 
-    grid.SetCell(2,2,CellStatus::fruit);
+    grid.AddFruit();
+    grid.AddFruit();
+    SnakeCell* s1 = grid.AddSnake(&ssn);
+
+    //SnakeCell* s1 = new SnakeCell(3,3,1,0,&grid, &ssn);
+    s1->SetHead();
 
     ClearTerm();
 

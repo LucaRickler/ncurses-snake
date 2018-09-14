@@ -1,6 +1,8 @@
 #ifndef SNAKE_HPP
 #define SNAKE_HPP
 
+class SnakeCell;
+
 #include <grid.hpp>
 #include <session.hpp>
 

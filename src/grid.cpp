@@ -1,4 +1,7 @@
 #include <grid.hpp>
+#include <stdlib.h>
+#include <time.h>
+#include <iostream>
 
 Grid::Grid() : Grid(GRID_MIN_WIDTH, GRID_MIN_HEIGHT) { }
 
@@ -61,4 +64,37 @@ CellStatus Grid::GetCell(int x, int y) {
 void Grid::SetCell(int x, int y, CellStatus status) {
   if (x >= 0 && x < this->_height +2 && y >= 0 && y < this->_width +2)
     this->_grid[x][y] = status;
+}
+
+void Grid::AddFruit() {
+  int x,y;
+  srand (time(NULL));
+  do {
+    x = rand() % this->_height +1;
+    y = rand() % this->_width +1;
+    std::cout << x << y <<std::endl;
+  } while (this->GetCell(x, y) != CellStatus::empty);
+  this->SetCell(x, y, CellStatus::fruit);
+}
+
+SnakeCell* Grid::AddSnake(Session* ssn) {
+  int x,y;
+  srand (time(NULL));
+  do {
+    x = rand() % this->_height - 3 +3;
+    y = rand() % this->_width - 3 +3;
+    std::cout << x << y <<std::endl;
+  } while (this->GetCell(x, y) != CellStatus::empty);
+  return new SnakeCell(
+    x,y,
+    1,0,this,ssn);
+}
+
+void Grid::FindEmpty(int& x, int& y) {
+  srand (time(NULL));
+  do {
+    x = rand() % this->_height +1;
+    y = rand() % this->_width +1;
+    std::cout << x << y <<std::endl;
+  } while (this->GetCell(x, y) != CellStatus::empty);
 }
