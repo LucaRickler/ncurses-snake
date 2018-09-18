@@ -17,7 +17,7 @@ public:
   void AddFruit();
   SnakeCell* AddSnake(Session* ssn);
 
-  std::string Print();
+  const char * Print();
 private:
   int _width;
   int _height;

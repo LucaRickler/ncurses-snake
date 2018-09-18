@@ -2,7 +2,6 @@
 #include <snake.hpp>
 #include <stdlib.h>
 #include <time.h>
-#include <iostream>
 
 Grid::Grid() : Grid(GRID_MIN_WIDTH, GRID_MIN_HEIGHT) { }
 
@@ -33,7 +32,7 @@ void Grid::initGrid() {
   }
 }
 
-std::string Grid::Print() {
+const char* Grid::Print() {
   std::string output = "";
   for (int i = 0; i < this->_height + 2; i++) {
     for (int j = 0; j < this->_width + 2; j++) {
@@ -54,7 +53,7 @@ std::string Grid::Print() {
     }
     output += "\n";
   }
-  return output;
+  return output.c_str();
 }
 
 Cell Grid::GetCell(int x, int y) {
@@ -84,7 +83,7 @@ SnakeCell* Grid::AddSnake(Session* ssn) {
 
 void Grid::FindEmpty(int& x, int& y, int x_padding, int y_padding) {
   do {
-    x = rand() % (this->_height - x_padding) + x_padding + 1;
-    y = rand() % (this->_width - y_padding) + y_padding + 1;
+    x = rand() % (this->_height -1 - x_padding) + x_padding + 1;
+    y = rand() % (this->_width -1 - y_padding) + y_padding + 1;
   } while (this->GetCell(x, y).status != CellStatus::empty);
 }
