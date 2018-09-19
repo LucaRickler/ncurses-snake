@@ -9,17 +9,11 @@
 
 void PrintGameOver(Session* ssn) {
     clear();
-    printw("\n\tGAME OVER\n\n\tPoints: %d\n\n", ssn->GetPoints());
-    refresh();
+    endwin();
+    printf("\n\tGAME OVER\n\n\tPoints: %d\n\n", ssn->GetPoints());
 }
 
-// void ClearTerm() {
-//    printw("\033[2J\033[1;1H");
-//    refresh();
-// }
-
 void SigIntHandler(int param) {
-    //ClearTerm();
     refresh();
     endwin();
     exit(1);
@@ -29,6 +23,7 @@ int main() {
     //signal(SIGINT, SigIntHandler);
     initscr();
     raw();
+    cbreak();
     keypad(stdscr, true);
     noecho();
 
@@ -39,19 +34,36 @@ int main() {
     grid.AddFruit();
     SnakeCell* s1 = grid.AddSnake(&ssn);
     s1->SetHead();
-    //ClearTerm();
 
-    while (!ssn.GetGameOver()) {
-        clear();
-        s1->Update(false);
-        printw(grid.Print());
-        printw("Points: %d", ssn.GetPoints());
-        std::this_thread::sleep_for(std::chrono::milliseconds(600)); 
-        //ClearTerm();
+    for (int i= 0; !ssn.GetGameOver(); i++) {
+        timeout(30);
+        char c = getch();
+        switch (c) {
+            case 'a':
+                s1->SetSpeed(0,-1);
+                break;
+            case 'd':
+                s1->SetSpeed(0,1);
+                break;
+            case 'w':
+                s1->SetSpeed(-1,0);
+                break;
+            case 's':
+                s1->SetSpeed(1,0);
+                break;
+            case 'q':
+                ssn.SetGameOver();
+        }
+        if(i%10 == 0) {
+            clear();
+            s1->Update(false);
+            printw(grid.Print());
+            printw("Points: %d", ssn.GetPoints());
         refresh();
+        }
+        //std::this_thread::sleep_for(std::chrono::milliseconds(600)); 
     }
     delete s1;
     PrintGameOver(&ssn);
-    endwin();
     return 0;
 }
