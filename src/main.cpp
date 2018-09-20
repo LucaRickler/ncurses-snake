@@ -1,7 +1,4 @@
 #include <curses.h>
-#include <thread>
-#include <chrono>
-#include <signal.h>
 
 #include <grid.hpp>
 #include <snake.hpp>
@@ -13,14 +10,7 @@ void PrintGameOver(Session* ssn) {
     printf("\n\tGAME OVER\n\n\tPoints: %d\n\n", ssn->GetPoints());
 }
 
-void SigIntHandler(int param) {
-    refresh();
-    endwin();
-    exit(1);
-}
-
 int main() {
-    //signal(SIGINT, SigIntHandler);
     initscr();
     raw();
     cbreak();
@@ -61,7 +51,6 @@ int main() {
             printw("Points: %d", ssn.GetPoints());
             refresh();
         }
-        //std::this_thread::sleep_for(std::chrono::milliseconds(600)); 
     }
     delete s1;
     PrintGameOver(&ssn);
