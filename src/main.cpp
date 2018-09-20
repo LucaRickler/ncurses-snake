@@ -59,7 +59,7 @@ int main() {
             s1->Update(false);
             printw(grid.Print());
             printw("Points: %d", ssn.GetPoints());
-        refresh();
+            refresh();
         }
         //std::this_thread::sleep_for(std::chrono::milliseconds(600)); 
     }
